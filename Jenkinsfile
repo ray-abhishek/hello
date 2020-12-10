@@ -7,7 +7,7 @@ node {
     stage('Build Image') {
         dir(source_dir) {
         echo 'building image'
-        sh 'sudo docker build . -t server/image'
+        sh 'docker build . -t server/image'
         }
     }
 
