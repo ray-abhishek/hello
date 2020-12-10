@@ -1,27 +1,34 @@
-def source_dir = "${env.WORKSPACE}@script/"
+node {
+    def env_vars = [
+   'IN_DOCKER_CONTAINER=true']
 
-stage('Build Image') {
-    dir(source_dir) {
-    echo 'building image'
-    sh 'docker build . -t server/image'
-    }
-}
+    def source_dir = "${env.WORKSPACE}@script/"
 
-stage("test") {
-
-dir(source_dir) {
-    docker.image('server/image'){
-        echo 'testing the app'
-        sh 'pytest app/tests/ -v -s -n 3'
-        echo 'tested the app'
+    stage('Build Image') {
+        dir(source_dir) {
+        echo 'building image'
+        sh 'docker build . -t server/image'
         }
     }
+
+    stage("test") {
+
+            dir(source_dir) {
+                docker.image('server/image'){
+                    echo 'testing the app'
+                    sh 'pytest app/tests/ -v -s -n 3'
+                    echo 'tested the app'
+                    }
+            }
+    }
+
+    stage("deploy") {
+        steps {
+            echo 'deploying the app'
+        }
+    }
+
 }
 
-stage("deploy") {
-    steps {
-        echo 'deploying the app'
-    }
-}
 
 
