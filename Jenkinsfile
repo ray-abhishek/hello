@@ -7,27 +7,24 @@ pipeline {
             sh 'docker build . -t server/image'
             }
         }
-        try{
-            stage("test") {
+        
+        stage("test") {
 
-            dir(source_dir) {
-                docker.image('server/image'){
-                    echo 'testing the app'
-                    sh 'pytest app/tests/ -v -s -n 3'
-                    echo 'tested the app'
-                    }
-                }
-            }
-
-            stage("deploy") {
-                steps {
-                    echo 'deploying the app'
+        dir(source_dir) {
+            docker.image('server/image'){
+                echo 'testing the app'
+                sh 'pytest app/tests/ -v -s -n 3'
+                echo 'tested the app'
                 }
             }
         }
-        catch(e){
-            echo 'build failed'
+
+        stage("deploy") {
+            steps {
+                echo 'deploying the app'
+            }
         }
+       
         
     }
 }
