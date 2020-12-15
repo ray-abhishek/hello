@@ -1,21 +1,31 @@
-pipeline {
-    agent none
-    stages {
-        stage('Back-end') {
-            agent {
-                docker { image 'maven:3-alpine' }
-            }
-            steps {
-                sh 'mvn --version'
-            }
-        }
-        stage('Front-end') {
-            agent {
-                docker { image 'node:14-alpine' }
-            }
-            steps {
-                sh 'node --version'
-            }
+node {
+    def env_vars = [
+   'IN_DOCKER_CONTAINER=true']
+
+    def source_dir = "${env.WORKSPACE}@script/"
+
+    stage('Build Image') {
+        dir(source_dir) {
+        echo 'building image'
+        sh 'docker build . -t server/image'
         }
     }
+
+    stage("test") {
+
+            dir(source_dir) {
+                docker.image('server/image'){
+                    echo 'testing the app'
+                    sh 'pytest app/tests/ -v -s -n 3'
+                    echo 'tested the app'
+                    }
+            }
+    }
+
+    stage("deploy") {
+        steps {
+            echo 'deploying the app'
+        }
+    }
+
 }
