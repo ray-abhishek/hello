@@ -10,7 +10,7 @@ node {
    'CI_DB_PORT=3306'
   ]
 
-  def source_dir = "${env.WORKSPACE}@script/"
+  def source_dir = "${env.WORKSPACE}@script"
   def rabbitmq_image = 'rabbitmq:3-management'
   def rabbitmq_args = '-e RABBITMQ_ERLANG_COOKIE="COOKIE" -e RABBITMQ_DEFAULT_USER="urbanpiper" -e RABBITMQ_DEFAULT_PASS="urbanpiper" -e RABBITMQ_DEFAULT_VHOST="uphost"'
   def mysql_image = 'dnhsoft/mysql-utf8:5.6'
