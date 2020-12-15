@@ -22,17 +22,11 @@ node {
       sh 'docker build . -t server/image'
     }
   }
-  
-  //  stage('Run Tests') {
-     
-  //  }
     try {
-        
         stage('Run Tests') {
           dir(source_dir) {
             docker.image(rabbitmq_image).withRun(rabbitmq_args) { rc ->
             docker.image(mysql_image).withRun(mysql_args) { mc ->
-
               withEnv(env_vars) {
                 docker.image('server/image').inside("--link=${mc.id}:mysql --link=${rc.id}:rabbitmq") {
                   sh 'find . -name *.pyc | xargs rm -f'
@@ -43,18 +37,13 @@ node {
             }
           }
         }
-
-    //     stage('Deploy') {
-    //         dir(source_dir) {
-    //           sh 'bash deploy_commands.sh ' + contains_migration
-    //         }
-    //     }
-            
-
+        stage('Deploy') {
+            dir(source_dir) {
+              sh 'bash deploy_commands.sh ' + contains_migration
+            }
+        }
     }
-
     catch (err) {
         throw err
     }
-
 }
