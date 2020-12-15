@@ -22,36 +22,41 @@ node {
       sh 'docker build . -t server/image'
     }
   }
-
-    try {
+  
+   stage('Run Tests') {
+     steps {
+       echo 'WORKING FINALLy'
+     }
+   }
+    // try {
         
-        stage('Run Tests') {
-          dir(source_dir) {
-            docker.image(rabbitmq_image).withRun(rabbitmq_args) { rc ->
-            docker.image(mysql_image).withRun(mysql_args) { mc ->
+    //     stage('Run Tests') {
+    //       dir(source_dir) {
+    //         docker.image(rabbitmq_image).withRun(rabbitmq_args) { rc ->
+    //         docker.image(mysql_image).withRun(mysql_args) { mc ->
 
-              withEnv(env_vars) {
-                docker.image('server/image').inside("--link=${mc.id}:mysql --link=${rc.id}:rabbitmq") {
-                  sh 'find . -name *.pyc | xargs rm -f'
-                  sh 'pytest -s --no-migrations -v'
-                }
-              }
-            }
-            }
-          }
-        }
+    //           withEnv(env_vars) {
+    //             docker.image('server/image').inside("--link=${mc.id}:mysql --link=${rc.id}:rabbitmq") {
+    //               sh 'find . -name *.pyc | xargs rm -f'
+    //               sh 'pytest -s --no-migrations -v'
+    //             }
+    //           }
+    //         }
+    //         }
+    //       }
+    //     }
 
-        stage('Deploy') {
-            dir(source_dir) {
-              sh 'bash deploy_commands.sh ' + contains_migration
-            }
-        }
+    //     stage('Deploy') {
+    //         dir(source_dir) {
+    //           sh 'bash deploy_commands.sh ' + contains_migration
+    //         }
+    //     }
             
 
-    }
+    // }
 
-    catch (err) {
-        throw err
-    }
+    // catch (err) {
+    //     throw err
+    // }
 
 }
