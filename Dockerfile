@@ -16,6 +16,6 @@ RUN make install
 
 WORKDIR /server
 COPY requirements.txt /server/
-RUN pip3 install -r requirements.txt
+RUN pip install -r requirements.txt
 COPY . /server/
 
