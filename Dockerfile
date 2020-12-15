@@ -3,9 +3,7 @@ RUN apt-get update && apt-get install -y build-essential python-dev python-pip l
                                          libjpeg-dev libfreetype6-dev zlib1g-dev libpq-dev libmysqlclient-dev inotify-tools tzdata wget libbz2-dev \
                                          libsqlite3-dev locales
 
-RUN useradd -d /planner -m planner
-WORKDIR /planner
-USER planner
+USER root
 RUN cd /
 RUN wget https://www.python.org/ftp/python/2.7.12/Python-2.7.12.tgz
 RUN tar -xvf Python-2.7.12.tgz
