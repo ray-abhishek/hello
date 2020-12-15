@@ -39,7 +39,7 @@ node {
         }
         stage('Deploy') {
             dir(source_dir) {
-              sh 'bash deploy_commands.sh ' + contains_migration
+              sh 'bash deploy_commands.sh'
             }
         }
     }
