@@ -14,21 +14,6 @@ RUN ./configure --enable-ipv6
 RUN make
 RUN make install
 
-RUN apt-get remove -y python-setuptools
-RUN wget https://bootstrap.pypa.io/get-pip.py
-RUN python get-pip.py
-
 WORKDIR /server
 RUN pip install Django==1.7 mysqlclient==1.4.6 pytest==4.6.11 pytest-cov==2.5.1 pytest-xdist==1.20.0
 RUN ls
-
-RUN wget -qO- https://deb.nodesource.com/setup_10.x | bash -
-RUN apt update
-RUN apt install -y nodejs
-RUN npm install -g yarn
-RUN yarn global add imagemin-cli@3.0.0 imagemin-mozjpeg@6.0.0 imagemin-pngquant@5.0.1
-
-ADD docker-entrypoint.sh /usr/bin/docker-entrypoint
-RUN chmod +x /usr/bin/docker-entrypoint
-ENTRYPOINT ["docker-entrypoint"]
-
