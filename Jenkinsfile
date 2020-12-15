@@ -24,9 +24,7 @@ node {
   }
   
    stage('Run Tests') {
-     steps {
-       echo 'WORKING FINALLy'
-     }
+     
    }
     // try {
         
