@@ -17,6 +17,5 @@ RUN make install
 WORKDIR /server
 COPY requirements.txt /server/
 RUN pip install -r requirements.txt
-RUN pip install docker-compose
 COPY . /server/
 
