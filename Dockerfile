@@ -15,5 +15,7 @@ RUN make
 RUN make install
 
 WORKDIR /server
-RUN pip install Django==1.7 mysqlclient==1.4.6 pytest==4.6.11 pytest-cov==2.5.1 pytest-xdist==1.20.0
-RUN ls
+COPY requirements.txt /server/
+RUN pip3 install -r requirements.txt
+COPY . /server/
+
