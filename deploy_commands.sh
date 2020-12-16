@@ -6,5 +6,5 @@ docker-compose build server
 docker-compose down && docker-compose up -d
 if $CONTAINS_MIGRATION
 then 
-    docker-compose run --rm --entrypoint "python manage.py migrate" server
+    docker-compose run --rm --entrypoint "python /server/helloworld/manage.py migrate" server
 fi
