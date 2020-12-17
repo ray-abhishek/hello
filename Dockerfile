@@ -6,9 +6,9 @@ RUN apt-get update && apt-get install -y build-essential python-dev python-pip l
 
 
 RUN cd /
-RUN wget https://www.python.org/ftp/python/2.7.12/Python-2.7.12.tgz
-RUN tar -xvf Python-2.7.12.tgz
-WORKDIR Python-2.7.12
+RUN wget https://www.python.org/ftp/python/2.7.16/Python-2.7.16.tgz
+RUN tar -xvf Python-2.7.16.tgz
+WORKDIR Python-2.7.16
 
 RUN ./configure --enable-ipv6
 RUN make
