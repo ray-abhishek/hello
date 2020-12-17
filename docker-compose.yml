@@ -20,7 +20,7 @@ services:
   mysql:
     image: mysql:5.6
     environment:
-      MYSQL_DATABASE: 'foodhub_db'
+      MYSQL_DATABASE: 'helloworld'
       MYSQL_ROOT_PASSWORD: 'Up123pU'
     volumes:
       - foodhub_mysql:/server/
@@ -41,8 +41,8 @@ services:
     ports:
       - '8000:8000'
     entrypoint:
-      - python3
-      - manage.py
+      - python
+      - server/helloworld/manage.py
       - runserver
       - 0.0.0.0:8000
     depends_on:
