@@ -40,7 +40,7 @@ def handle_jenkins_server_webhooks(request):
             break
 
     print(contains_migration," is contains_migration")
-    command = """curl -X POST http://jenkins_api:119b7414e30b8d610b40e3574ccf32a829@localhost:8080/job/server/build/\?token\=1234 --data-urlencode json='{"parameter": [{"name":"BRANCH_NAME", "value":"%s"}, {"name":"CONTAINS_MIGRATION", "value":"%s"}]}' -H "Jenkins-Crumb:ff5591471489a19aa6cf1f0e51c899c14acf538a294ec15f2e7a7c00f3140071" """ % (branch_name, contains_migration)
+    command = """curl -X POST http://jenkins_api:119b7414e30b8d610b40e3574ccf32a829@localhost:8080/job/server/build/\?token\=my-token --data-urlencode json='{"parameter": [{"name":"BRANCH_NAME", "value":"%s"}, {"name":"CONTAINS_MIGRATION", "value":"%s"}]}' -H "Jenkins-Crumb:ff5591471489a19aa6cf1f0e51c899c14acf538a294ec15f2e7a7c00f3140071" """ % (branch_name, contains_migration)
     print('MY COMMAND ',command)
     os.system(command)
     return HttpResponse(status=200)
